@@ -1,0 +1,5 @@
+package com.aman.project.security;
+
+public class SecurityConfig {
+
+}

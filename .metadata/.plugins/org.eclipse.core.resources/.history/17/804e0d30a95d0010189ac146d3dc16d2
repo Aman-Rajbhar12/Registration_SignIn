@@ -1,0 +1,12 @@
+package com.aman.project.repository;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.aman.project.model.MyAppUser;
+
+public interface MyAppUserRepository extends JpaRepository<MyAppUser, Long> {
+ 
+	Optional<MyAppUser> findByUsername(String username);
+}

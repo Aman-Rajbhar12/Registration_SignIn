@@ -1,0 +1,41 @@
+package com.aman.project.service;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import com.aman.project.model.MyAppUser;
+import com.aman.project.repository.MyAppUserRepository;
+
+import lombok.AllArgsConstructor;
+
+@Service
+@AllArgsConstructor
+public class MyAppUserService  implements UserDetailsService{
+	
+	
+	@Autowired
+	MyAppUserRepository myAppUserRpository;
+	
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		 Optional<MyAppUser> user = myAppUserRpository.findByUsername(username);
+		 if(user.isPresent()) {
+			 var userObj = user.get();
+			 return User.builder()
+					 .username(userObj.getUsername())
+					 .username(userObj.getPassword())
+					 .build();
+		 }else {
+			 throw new UsernameNotFoundException(username);
+		 }
+		
+	}
+	
+
+}
